@@ -12,12 +12,12 @@
 
 #include "so_long.h"
 
-int	ft_x_res(const char *map)
+int	ft_x_res(char *map)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
 	char	read_temp[1];
-	
+
 	fd = open(map, O_RDONLY);
 	read_temp[0] = 1;
 	i = -1;
@@ -30,10 +30,10 @@ int	ft_x_res(const char *map)
 	return (i * 64);
 }
 
-int	ft_y_res(const char *map)
+int	ft_y_res(char *map)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
 	char	read_temp[1];
 
 	fd = open(map, O_RDONLY);

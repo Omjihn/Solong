@@ -12,16 +12,16 @@
 
 #include "so_long.h"
 
-int     main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-        t_vars  vars;
+	t_vars	vars;
 
 	if (argc != 2)
 		return (0);
-        vars.mlx = mlx_init();
-        vars.win = mlx_new_window(vars.mlx, ft_x_res(argv[1]),
-		       	ft_y_res(argv[1]), "So long Bowser !");
-        if (ft_read_map(vars, argv[1]) == 0)
-                return (0);
-        mlx_loop(vars.mlx);
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, ft_x_res(argv[1]),
+			ft_y_res(argv[1]), "So long Bowser !");
+	if (ft_read_map(vars, argv[1]) == 0)
+		return (0);
+	mlx_loop(vars.mlx);
 }

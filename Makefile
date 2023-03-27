@@ -26,7 +26,7 @@ OBJ = $(SRC:.c=.o)
 LIB = Printf/libftprintf.a minilibx-linux/libmlx_Linux.a 
 
 $(NAME):	$(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIB) -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) -g
+	$(CC) $(CFLAGS) $(OBJ) $(LIB) -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 all: mlx printf $(NAME)
 
