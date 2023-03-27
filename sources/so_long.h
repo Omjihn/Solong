@@ -39,7 +39,6 @@ typedef struct s_coords
 	int	y;
 }			t_coords;
 
-int		ft_read_map(t_vars vars, char *map);
 int		ft_get_images(t_textures *textures, void *mlx);
 int		ft_x_res(char *map);
 int		ft_y_res(char *map);
@@ -49,5 +48,7 @@ int		wich_image2(t_textures *textures, t_vars vars, char read, t_coords crd);
 void	ft_img_to_window(t_textures *textures, t_vars vars, char *map);
 
 void	*ft_calloc(size_t nmemb, size_t size);
+
+t_textures	ft_read_map(t_vars vars, char *map);
 
 #endif

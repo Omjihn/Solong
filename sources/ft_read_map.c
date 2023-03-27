@@ -99,7 +99,7 @@ int	ft_get_images(t_textures *textures, void *mlx)
 	return (1);
 }
 
-int	ft_read_map(t_vars vars, char *map)
+t_textures	ft_read_map(t_vars vars, char *map)
 {
 	t_textures	*textures;
 
@@ -109,5 +109,5 @@ int	ft_read_map(t_vars vars, char *map)
 	if (ft_get_images(textures, vars.mlx) == 0)
 		return (0);
 	ft_img_to_window(textures, vars, map);
-	return (1);
+	return (textures);
 }
