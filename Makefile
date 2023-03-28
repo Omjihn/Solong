@@ -6,7 +6,7 @@
 #    By: gbricot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 17:08:54 by gbricot           #+#    #+#              #
-#    Updated: 2023/03/27 18:17:12 by gbricot          ###   ########.fr        #
+#    Updated: 2023/03/28 18:21:28 by gbricot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,14 @@ NAME = so_long
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror
 
 SRC =	sources/main.c \
 	sources/ft_read_map.c \
-	sources/ft_calloc.c \
 	sources/ft_res.c \
+	sources/ft_get_images.c \
+	sources/get_next_line.c \
+	sources/get_next_line_utils.c \
 
 OBJ = $(SRC:.c=.o)
 

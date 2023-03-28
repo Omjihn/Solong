@@ -17,6 +17,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 # include "../Printf/ft_printf.h"
+# include "get_next_line.h"
 
 typedef struct s_vars
 {
@@ -30,6 +31,7 @@ typedef struct s_textures
 	void	*road;
 	void	*player;
 	void	*food;
+	void	*enemy;
 	void	*exit;
 }			t_textures;
 
@@ -39,16 +41,15 @@ typedef struct s_coords
 	int	y;
 }			t_coords;
 
-int		ft_get_images(t_textures *textures, void *mlx);
 int		ft_x_res(char *map);
 int		ft_y_res(char *map);
-int		wich_image(t_textures *textures, t_vars vars, char read, t_coords crd);
-int		wich_image2(t_textures *textures, t_vars vars, char read, t_coords crd);
+int		wich_image(t_textures textures, t_vars vars, char read, t_coords crd);
+int		wich_image2(t_textures textures, t_vars vars, char read, t_coords crd);
 
-void	ft_img_to_window(t_textures *textures, t_vars vars, char *map);
+char	**ft_read_map(t_vars vars, t_textures, char *map);
 
-void	*ft_calloc(size_t nmemb, size_t size);
+void	ft_img_to_window(t_textures textures, t_vars vars, char *map);
 
-t_textures	ft_read_map(t_vars vars, char *map);
+t_textures	ft_get_images(void *mlx);
 
 #endif

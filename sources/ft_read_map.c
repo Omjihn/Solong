@@ -6,57 +6,60 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 17:51:17 by gbricot           #+#    #+#             */
-/*   Updated: 2023/03/27 19:45:12 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/03/28 18:30:35 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	wich_image(t_textures *textures, t_vars vars, char read, t_coords crd)
+int	wich_image(t_textures textures, t_vars vars, char read, t_coords crd)
 {
 	if (read == '1')
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win,
-			textures->wall, crd.x, crd.y);
+			textures.wall, crd.x, crd.y);
 		return (64);
 	}
 	else if (read == '0')
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win,
-			textures->road, crd.x, crd.y);
+			textures.road, crd.x, crd.y);
 		return (64);
 	}
 	else if (read == 'E')
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win,
-			textures->exit, crd.x, crd.y);
+			textures.exit, crd.x, crd.y);
 		return (64);
 	}
 	return (0);
 }
 
-int	wich_image2(t_textures *textures, t_vars vars, char read, t_coords crd)
+int	wich_image2(t_textures textures, t_vars vars, char read, t_coords crd)
 {
 	if (read == 'P')
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win,
-			textures->road, crd.x, crd.y);
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			textures->player, crd.x, crd.y);
+			textures.player, crd.x, crd.y);
 		return (64);
 	}
 	else if (read == 'C')
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win,
-			textures->road, crd.x, crd.y);
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			textures->food, crd.x, crd.y);
+			textures.food, crd.x, crd.y);
 		return (64);
 	}
+	else if (read == 'T')
+        {
+                mlx_put_image_to_window(vars.mlx, vars.win,
+                        textures.enemy, crd.x, crd.y);
+                return (64);
+        }
+
 	return (0);
 }
 
-void	ft_img_to_window(t_textures *textures, t_vars vars, char *map)
+void	ft_img_to_window(t_textures textures, t_vars vars, char *map)
 {
 	int			fd;
 	t_coords	coords;
@@ -78,36 +81,46 @@ void	ft_img_to_window(t_textures *textures, t_vars vars, char *map)
 	close (fd);
 }
 
-int	ft_get_images(t_textures *textures, void *mlx)
+char	**ft_map_split(char *s_map, int tabs)
 {
-	int	img_res;
+	int	fd;
+	int	i;
+	char	**res;
 
-	img_res = 64;
-	textures->wall = mlx_xpm_file_to_image(mlx,
-			"textures/stones-resized.xpm", &img_res, &img_res);
-	textures->road = mlx_xpm_file_to_image(mlx,
-			"textures/wood-resized.xpm", &img_res, &img_res);
-	textures->player = mlx_xpm_file_to_image(mlx,
-			"textures/bread-resized.xpm", &img_res, &img_res);
-	textures->exit = mlx_xpm_file_to_image(mlx,
-			"textures/portal-resized.xpm", &img_res, &img_res);
-	textures->food = mlx_xpm_file_to_image(mlx,
-			"textures/heart-resized.xpm", &img_res, &img_res);
-	if (!textures->wall || !textures->road || !textures->player
-		|| !textures->exit || !textures->food)
+	res = (char **) malloc (tabs + 1 * sizeof(char *));
+	if (!res)
 		return (0);
-	return (1);
+	fd = open(s_map, O_RDONLY);
+	i = 0;
+	res[i] = get_next_line(fd);
+	i++;
+	while (i < tabs)
+	{
+		res[i] = get_next_line(fd);
+		i++;
+	}
+	res[i] = 0;
+	close (fd);
+	return (0);
 }
+	
 
-t_textures	ft_read_map(t_vars vars, char *map)
+char	**ft_read_map(t_vars vars, t_textures textures, char *s_map)
 {
-	t_textures	*textures;
+	char	**map;
+	char	temp[1];
+	int	fd;
+	int	tabs;
 
-	textures = (t_textures *) ft_calloc(sizeof(t_textures), 1);
-	if (!textures)
-		return (0);
-	if (ft_get_images(textures, vars.mlx) == 0)
-		return (0);
-	ft_img_to_window(textures, vars, map);
-	return (textures);
+	fd = open (s_map, O_RDONLY);
+	tabs = 0;
+	while (read(fd, temp, 1) != 0)
+	{
+		if (*temp == '\n')
+			tabs++;
+	}
+	close (fd);
+	map = ft_map_split(s_map, tabs);
+	ft_img_to_window(textures, vars, s_map);
+	return (map);
 }
