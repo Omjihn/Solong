@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 17:51:17 by gbricot           #+#    #+#             */
-/*   Updated: 2023/03/28 18:30:35 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/03/29 19:08:43 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,22 +105,22 @@ char	**ft_map_split(char *s_map, int tabs)
 }
 	
 
-char	**ft_read_map(t_vars vars, t_textures textures, char *s_map)
+char	**ft_read_map(t_vars vars, char *s_map)
 {
 	char	**map;
-	char	temp[1];
-	int	fd;
-	int	tabs;
+//	char	temp[1];
+//	int	fd;
+//	int	tabs;
 
-	fd = open (s_map, O_RDONLY);
-	tabs = 0;
-	while (read(fd, temp, 1) != 0)
-	{
-		if (*temp == '\n')
-			tabs++;
-	}
-	close (fd);
-	map = ft_map_split(s_map, tabs);
-	ft_img_to_window(textures, vars, s_map);
+//	fd = open (s_map, O_RDONLY);
+//	tabs = 0;
+//	while (read(fd, temp, 1) > 0)
+//	{
+//		if (*temp == '\n')
+//			tabs++;
+//	}
+//	close (fd);
+//	map = ft_map_split(s_map, tabs);
+	ft_img_to_window(vars.textures, vars, s_map);
 	return (map);
 }

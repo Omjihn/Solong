@@ -5,23 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 14:09:04 by gbricot           #+#    #+#             */
-/*   Updated: 2023/03/30 15:34:49 by gbricot          ###   ########.fr       */
+/*   Created: 2023/03/25 12:22:59 by gbricot           #+#    #+#             */
+/*   Updated: 2023/03/29 18:40:59 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	SO_LONG_H
+#ifndef SO_LONG_H
 # define SO_LONG_H
 
 # include <stdlib.h>
-# include <stdio.h>
-# include <stddef.h>
-# include <unistd.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+# include "../minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx_int.h"
 # include "../Printf/ft_printf.h"
+# include "get_next_line.h"
 
-typedef	struct	s_textures
+typedef struct s_textures
 {
 	void	*wall;
 	void	*road;
@@ -31,28 +29,30 @@ typedef	struct	s_textures
 	void	*exit;
 }			t_textures;
 
-typedef	struct	s_coords
+typedef struct s_coords
 {
 	int	x;
 	int	y;
 }			t_coords;
 
-typedef	struct s_vars
+typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
 	char	**map;
-	t_textures	img;
-	t_coords	player;
-
+	t_textures	textures;
+	t_coords	coords;
 }			t_vars;
 
-void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
+int		ft_x_res(char *map);
+int		ft_y_res(char *map);
+int		wich_image(t_textures textures, t_vars vars, char read, t_coords crd);
+int		wich_image2(t_textures textures, t_vars vars, char read, t_coords crd);
 
-char	*ft_ber_to_text(char *map);
+char	**ft_read_map(t_vars vars, char *map);
 
-char	**ft_gnl_map(t_vars, char *map);
-char	**ft_split(const char *str, char c);
+void	ft_img_to_window(t_textures textures, t_vars vars, char *map);
+
+t_textures	ft_get_images(void *mlx);
 
 #endif

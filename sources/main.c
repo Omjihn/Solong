@@ -5,34 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/15 14:48:37 by gbricot           #+#    #+#             */
-/*   Updated: 2023/03/28 18:34:10 by gbricot          ###   ########.fr       */
+/*   Created: 2023/03/30 14:06:25 by gbricot           #+#    #+#             */
+/*   Updated: 2023/03/30 21:57:13 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+static int	ft_error(int argc, char **argv)
+{
+	int	fd;
+	int	i;
+	char	temp[1];
+	char	*verif;
+
+	if (argc >= 3)
+		return (ft_printf("Wowowow only one map please\n"));
+	else if (argc <= 1)
+		return (ft_printf("Error please enter a map :   )\n"));
+	else
+	{
+		fd = open(argv[1], O_RDONLY);
+                if (read(fd, temp, 1) <= 0)
+                        return (ft_printf("Error while opening the file\n"));
+		i = 0;
+		while (argv[1][i])
+			i++;
+		i -= 4;
+		verif = ".ber";
+		while (argv[1][i] == *verif)
+		{
+			i++;
+			verif++;
+		}
+		if (*verif == '\0')
+			return (0);
+		return (ft_printf("Error the map must be a '.ber' file :/\n"));
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
-	t_textures	textures;
-	char	**map;
 	int	i;
+	char	**str;
 
-	if (argc != 2)
+	if (ft_error(argc, argv) > 0)
 		return (0);
-	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, ft_x_res(argv[1]),
-			ft_y_res(argv[1]), "So long Bowser !");
-	textures = ft_get_images(vars.mlx);
-	map = ft_read_map(vars, textures, argv[1]);
+	vars.map = ft_gnl_map(vars, argv[1]);
+	if (!vars.map)
+		return (0);
 	i = 0;
-//	ft_printf("%s", map[1]);
-//	while (map[i])
-//	{
-//		ft_printf("%s", map[i]);
-//		i++;
-//	}
-	mlx_loop(vars.mlx);
+	while (vars.map[i])
+	{
+		ft_printf("%s\n", vars.map[i]);
+		i++;
+	}
 	return (0);
 }

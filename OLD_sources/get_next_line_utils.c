@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 19:58:05 by gbricot           #+#    #+#             */
-/*   Updated: 2023/03/17 17:37:51 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/03/29 13:43:35 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*trim_trash(char *trash, int i)
 	i++;
 	while (trash[i])
 		new_trash[j++] = trash[i++];
-	new_trash[j] = '\0';
+	new_trash[j - 1] = '\0';
 	free(trash);
 	return (new_trash);
 }
