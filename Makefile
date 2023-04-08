@@ -6,7 +6,7 @@
 #    By: gbricot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 17:08:54 by gbricot           #+#    #+#              #
-#    Updated: 2023/03/30 21:45:48 by gbricot          ###   ########.fr        #
+#    Updated: 2023/04/08 19:19:48 by gbricot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,12 @@ CC = gcc
 
 SRC =	sources/main.c \
 	sources/ft_split.c \
-	sources/ft_gnl_map.c \
+	sources/ft_read_map.c \
+	sources/ft_map_check.c \
 	sources/ft_calloc.c \
 	sources/ft_memcpy.c \
+	sources/ft_render_map.c \
+	sources/ft_player_move.c \
 
 OBJ = $(SRC:.c=.o)
 
