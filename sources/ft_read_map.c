@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 15:35:23 by gbricot           #+#    #+#             */
-/*   Updated: 2023/03/31 14:14:58 by gbricot          ###   ########.fr       */
+/*   Created: 2023/04/09 17:40:26 by gbricot           #+#    #+#             */
+/*   Updated: 2023/04/10 17:51:22 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*ft_add_space(char *old, int i, int buffer)
 	return (res);
 }
 
-char	*ft_ber_to_text(char *map)
+static char	*ft_ber_to_text(char *argv)
 {
 	int	fd;
 	int	i;
@@ -40,7 +40,7 @@ char	*ft_ber_to_text(char *map)
 	char	*res;
 
 	buffer = 42;
-	fd = open(map, O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	res = (char *) ft_calloc(buffer + 1, 1);
 	if (!res)
 		return (0);
@@ -55,12 +55,12 @@ char	*ft_ber_to_text(char *map)
 	return (res);
 }
 
-char	**ft_read_map(char *map)
+char	**ft_read_map(char *argv)
 {
 	char	**res_map;
 	char	*file;
 
-	file = ft_ber_to_text(map);
+	file = ft_ber_to_text(argv);
 	if (!file)
 		return (0);
 	res_map = ft_split(file, '\n');

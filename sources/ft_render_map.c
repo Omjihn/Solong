@@ -5,56 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/31 14:56:10 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/08 18:26:58 by gbricot          ###   ########.fr       */
+/*   Created: 2023/04/10 15:38:04 by gbricot           #+#    #+#             */
+/*   Updated: 2023/04/10 16:50:48 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	wich_image(t_vars vars, t_coords crd)
+int	wich_image(t_vars *vars, t_coords crd)
 {
-	if (vars.map[crd.y][crd.x] == '1')
+	if (vars->map[crd.y][crd.x] == '1')
 	{
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			vars.img.wall, crd.x * 64, crd.y * 64);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.wall, crd.x * 64, crd.y * 64);
 		return (1);
 	}
-	else if (vars.map[crd.y][crd.x] == '0')
+	else if (vars->map[crd.y][crd.x] == '0')
 	{
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			vars.img.road, crd.x * 64, crd.y * 64);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.road, crd.x * 64, crd.y * 64);
 		return (1);
 	}
-	else if (vars.map[crd.y][crd.x] == 'E')
+	else if (vars->map[crd.y][crd.x] == 'E')
 	{
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			vars.img.exit, crd.x * 64, crd.y * 64);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.exit, crd.x * 64, crd.y * 64);
 		return (1);
 	}
 	return (0);
 }
 
-int	wich_image2(t_vars vars, t_coords crd)
+int	wich_image2(t_vars *vars, t_coords crd)
 {
-	if (vars.map[crd.y][crd.x] == 'P')
+	if (vars->map[crd.y][crd.x] == 'P')
 	{
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			vars.img.road, crd.x * 64, crd.y * 64);
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			vars.img.player, crd.x * 64, crd.y * 64);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.road, crd.x * 64, crd.y * 64);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.player, crd.x * 64, crd.y * 64);
 		return (1);
 	}
-	else if (vars.map[crd.y][crd.x] == 'C')
+	else if (vars->map[crd.y][crd.x] == 'C')
 	{
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			vars.img.food, crd.x * 64, crd.y * 64);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.food, crd.x * 64, crd.y * 64);
 		return (1);
 	}
-	else if (vars.map[crd.y][crd.x] == 'T')
+	else if (vars->map[crd.y][crd.x] == 'T')
 	{
-		mlx_put_image_to_window(vars.mlx, vars.win,
-			vars.img.enemy, crd.x * 64, crd.y * 64);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.enemy, crd.x * 64, crd.y * 64);
 		return (1);
 	}
 	return (0);
@@ -81,40 +81,22 @@ t_textures	ft_get_textures(void *mlx)
 	return (textures);
 }
 
-void	*ft_add_window(t_vars vars)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (vars.map[0][x] != '\n' && vars.map[0][x])
-		x++;
-	vars.win_res->x = x;
-	y = 0;
-	while (vars.map[y])
-		y++;
-	vars.win_res->y = y;
-	return (mlx_new_window(vars.mlx, x * 64, y * 64, "So long"));
-}
-
-void	*ft_render_map(t_vars vars)
+void	*ft_render_map(t_vars *vars)
 {
 	t_coords	coords;
-	t_coords	*win_res;
 	void		*win;
 
-	win_res = (t_coords *) calloc (sizeof(t_coords), 1);
-	vars.win_res = win_res;
-	vars.img = ft_get_textures(vars.mlx);
-	win = ft_add_window(vars);
-	vars.win = win;
+	vars->img = ft_get_textures(vars->mlx);
+	win = mlx_new_window(vars->mlx, vars->win_res->x * 64, 
+			vars->win_res->y * 64, "Ungrilled toast");
+	vars->win = win;
 	coords.x = 0;
 	coords.y = 0;
-	while (vars.map[coords.y])
+	while (vars->map[coords.y])
 	{
 		coords.x += wich_image(vars, coords);
 		coords.x += wich_image2(vars, coords);
-		if (vars.map[coords.y][coords.x] == '\0')
+		if (vars->map[coords.y][coords.x] == '\0')
 		{
 			coords.y += 1;
 			coords.x = 0;
