@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:22:45 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/10 21:15:52 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/10 22:29:21 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	ft_error(int argc, char **argv)
 {
-	int	fd;
-	int	i;
+	int		fd;
+	int		i;
 	char	temp[1];
 	char	*verif;
 
@@ -26,8 +26,8 @@ static int	ft_error(int argc, char **argv)
 	else
 	{
 		fd = open(argv[1], O_RDONLY);
-                if (read(fd, temp, 1) <= 0)
-                        return (ft_printf("Error while opening the file\n"));
+		if (read(fd, temp, 1) <= 0)
+			return (ft_printf("Error while opening the file\n"));
 		i = 0;
 		while (argv[1][i])
 			i++;
@@ -47,7 +47,7 @@ static int	ft_error(int argc, char **argv)
 static t_vars	*ft_init(int argc, char **argv)
 {
 	t_vars	*vars;
-	int	i = 0; //debug pour test a retirer.
+	int		i = 0; //debug pour test a retirer.
 
 	if (ft_error(argc, argv) > 0)
 		return (NULL);
@@ -68,13 +68,13 @@ static t_vars	*ft_init(int argc, char **argv)
 int	main(int argc, char **argv)
 {
 	t_vars	*vars;
-	
+
 	vars = ft_init(argc, argv);
 	ft_printf("vars->player->x :%d\nvars->player->y :%d\n", vars->player->x, vars->player->y);
 	vars->mlx = mlx_init();
 	vars->win = ft_render_map(vars);
 	mlx_loop_hook(vars->mlx, &ft_every_frames, vars);
-	mlx_hook(vars->win, 2, (1L<<2), ft_wich_key, vars);
+	mlx_hook(vars->win, 2, (1L << 2), ft_wich_key, vars);
 	mlx_key_hook(vars->win, ft_wich_key, vars);
 	mlx_loop(vars->mlx);
 	mlx_destroy_display(vars->mlx);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 14:09:04 by gbricot           #+#    #+#             */
-/*   Updated: 2023/03/31 14:15:13 by gbricot          ###   ########.fr       */
+/*   Created: 2023/04/09 17:28:46 by gbricot           #+#    #+#             */
+/*   Updated: 2023/04/09 17:44:22 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef	struct	s_textures
 
 typedef	struct	s_coords
 {
-	int	x;
 	int	y;
+	int	x;
 }			t_coords;
 
 typedef	struct s_vars
@@ -44,32 +44,29 @@ typedef	struct s_vars
 	void	*mlx;
 	void	*win;
 	char	**map;
+	int	moves;
 	t_textures	img;
+	t_coords	*player;
 	t_coords	*win_res;
-	t_coords	player;
 }			t_vars;
 
-int		ft_is_rectangle(t_vars vars);
-int		ft_check_contains(t_vars vars);
-int		ft_map_check(t_vars vars);
-int		wich_image(t_vars vars, t_coords crd);
-int		wich_image2(t_vars vars, t_coords crd);
-int		wich_key(int keycode, t_vars *vars);
-
-void    ft_get_player_coords(t_coords *player, t_vars vars);
-void	ft_player_move(t_vars vars, int y, int x);
-void	ft_quit(t_vars *vars);
-
-void	*ft_render_map(t_vars vars);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
-void	*ft_add_window(t_vars vars);
 
-char	*ft_ber_to_text(char *map);
+char **ft_read_map(char *map);
+char **ft_split(char const*s, char c);
 
-char	**ft_read_map(char *map);
-char	**ft_split(const char *str, char c);
+t_coords	*ft_get_win_res(t_vars *vars);
+t_coords	*ft_get_player_coords(t_vars *vars);
 
-t_textures	ft_get_textures(void *mlx);
+int     ft_every_frames(t_vars *vars);
+int     ft_wich_key(int keycode, t_vars *vars);
+int		ft_map_check(t_vars *vars);
+
+void    ft_player_move_up(t_vars *vars);
+void    ft_player_move_right(t_vars *vars);
+void    ft_player_move_down(t_vars *vars);
+void    ft_player_move_left(t_vars *vars);
+void	*ft_render_map(t_vars *vars);
 
 #endif

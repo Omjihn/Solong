@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:40:26 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/10 17:51:22 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/10 22:21:36 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static char	*ft_add_space(char *old, int i, int buffer)
 
 static char	*ft_ber_to_text(char *argv)
 {
-	int	fd;
-	int	i;
-	int	buffer;
+	int		fd;
+	int		i;
+	int		buffer;
 	char	*res;
 
 	buffer = 42;

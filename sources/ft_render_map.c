@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:38:04 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/10 16:50:48 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/10 22:26:20 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	wich_image2(t_vars *vars, t_coords crd)
 t_textures	ft_get_textures(void *mlx)
 {
 	t_textures	textures;
-	int		img_res;
+	int			img_res;
 
 	img_res = 64;
 	textures.wall = mlx_xpm_file_to_image(mlx,
@@ -87,7 +87,7 @@ void	*ft_render_map(t_vars *vars)
 	void		*win;
 
 	vars->img = ft_get_textures(vars->mlx);
-	win = mlx_new_window(vars->mlx, vars->win_res->x * 64, 
+	win = mlx_new_window(vars->mlx, vars->win_res->x * 64,
 			vars->win_res->y * 64, "Ungrilled toast");
 	vars->win = win;
 	coords.x = 0;
