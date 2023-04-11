@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:26:33 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/10 21:36:10 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/11 18:16:55 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_player_move_up(t_vars *vars)
 			vars->img.road, vars->player->x * 64,
 			(vars->player->y) * 64);
 		vars->player->y--;
+		mlx_string_put(vars->mlx, vars->win, 100, 100, 125, "salut");
 		ft_printf("Number of moves :%d\n", ++vars->moves);
 	}
 }
