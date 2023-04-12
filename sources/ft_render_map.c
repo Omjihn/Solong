@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:38:04 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/10 22:26:20 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/11 17:33:29 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,6 @@ int	wich_image(t_vars *vars, t_coords crd)
 			vars->img.road, crd.x * 64, crd.y * 64);
 		return (1);
 	}
-	else if (vars->map[crd.y][crd.x] == 'E')
-	{
-		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->img.exit, crd.x * 64, crd.y * 64);
-		return (1);
-	}
-	return (0);
-}
-
-int	wich_image2(t_vars *vars, t_coords crd)
-{
-	if (vars->map[crd.y][crd.x] == 'P')
-	{
-		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->img.road, crd.x * 64, crd.y * 64);
-		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->img.player, crd.x * 64, crd.y * 64);
-		return (1);
-	}
 	else if (vars->map[crd.y][crd.x] == 'C')
 	{
 		mlx_put_image_to_window(vars->mlx, vars->win,
@@ -60,6 +41,33 @@ int	wich_image2(t_vars *vars, t_coords crd)
 	return (0);
 }
 
+int	wich_image2(t_vars *vars, t_coords crd)
+{
+	t_coords	*exit;
+	int	y;
+	int	x;
+	
+	y = crd.y;
+	x = crd.x;
+	if (vars->map[crd.y][crd.x] == 'P')
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.player, crd.x * 64, crd.y * 64);
+		return (1);
+	}
+	else if (vars->map[crd.y][crd.x] == 'E')
+	{
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img.exit_c, crd.x * 64, crd.y * 64);
+		exit = (t_coords *) malloc (sizeof(t_coords));
+		exit->y = y;
+		exit->x = x;
+		vars->exit = exit;
+		return (1);
+	}
+	return (0);
+}
+
 t_textures	ft_get_textures(void *mlx)
 {
 	t_textures	textures;
@@ -67,15 +75,17 @@ t_textures	ft_get_textures(void *mlx)
 
 	img_res = 64;
 	textures.wall = mlx_xpm_file_to_image(mlx,
-			"textures/stones-resized.xpm", &img_res, &img_res);
+			"textures/wall.xpm", &img_res, &img_res);
 	textures.road = mlx_xpm_file_to_image(mlx,
 			"textures/road.xpm", &img_res, &img_res);
 	textures.player = mlx_xpm_file_to_image(mlx,
 			"textures/player.xpm", &img_res, &img_res);
-	textures.exit = mlx_xpm_file_to_image(mlx,
-			"textures/portal-resized.xpm", &img_res, &img_res);
+	textures.exit_c = mlx_xpm_file_to_image(mlx,
+			"textures/exit_close.xpm", &img_res, &img_res);
+	textures.exit_o = mlx_xpm_file_to_image(mlx,
+			"textures/exit_open.xpm", &img_res, &img_res);
 	textures.food = mlx_xpm_file_to_image(mlx,
-			"textures/heart-resized.xpm", &img_res, &img_res);
+			"textures/butter.xpm", &img_res, &img_res);
 	textures.enemy = mlx_xpm_file_to_image(mlx,
 			"textures/enemy.xpm", &img_res, &img_res);
 	return (textures);

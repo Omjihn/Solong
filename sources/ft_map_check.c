@@ -49,11 +49,7 @@ int	ft_check_contains(t_vars *vars)
 	while (vars->map[y])
 	{
 		x = 0;
-		while (vars->map[y][x] == '1' || vars->map[y][x] == '0'
-				|| vars->map[y][x] == 'E'
-				|| vars->map[y][x] == 'C'
-				|| vars->map[y][x] == 'P'
-				|| vars->map[y][x] == 'T')
+		while (vars->map[y][x])
 		{
 			if (vars->map[y][x] == 'E')
 				exit++;
@@ -65,6 +61,7 @@ int	ft_check_contains(t_vars *vars)
 		}
 		y++;
 	}
+	vars->max_c = food;
 	if (exit > 1 || player > 1 || food == 0)
 		return (1);
 	return (0);

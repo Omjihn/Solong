@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:22:45 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/10 22:29:21 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/12 21:31:24 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,18 @@ static int	ft_error(int argc, char **argv)
 static t_vars	*ft_init(int argc, char **argv)
 {
 	t_vars	*vars;
-	int		i = 0; //debug pour test a retirer.
 
 	if (ft_error(argc, argv) > 0)
 		return (NULL);
 	vars = (t_vars *) calloc (sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
+	vars->current_c = 0;
 	vars->map = ft_read_map(argv[1]);
 	if (!vars->map)
 		return (NULL);
-	while (vars->map[i]) //debug pour test a retirer
-		ft_printf("%s\n", vars->map[i++]); //debug pour test a retirer
 	if (ft_map_check(vars) == 0)
 		return (NULL);
-	ft_printf("vars->player->x :%d\nvars->player->y :%d\n", vars->player->x, vars->player->y); // a retirer
 	return (vars);
 }
 
@@ -70,7 +67,6 @@ int	main(int argc, char **argv)
 	t_vars	*vars;
 
 	vars = ft_init(argc, argv);
-	ft_printf("vars->player->x :%d\nvars->player->y :%d\n", vars->player->x, vars->player->y);
 	vars->mlx = mlx_init();
 	vars->win = ft_render_map(vars);
 	mlx_loop_hook(vars->mlx, &ft_every_frames, vars);
