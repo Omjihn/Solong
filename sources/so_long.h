@@ -23,7 +23,7 @@
 # include "../minilibx-linux/mlx.h"
 # include "../minilibx-linux/mlx_int.h"
 
-typedef	struct	s_textures
+typedef struct s_textures
 {
 	void	*wall;
 	void	*road;
@@ -34,41 +34,43 @@ typedef	struct	s_textures
 	void	*exit_c;
 }			t_textures;
 
-typedef	struct	s_coords
+typedef struct s_coords
 {
 	int	y;
 	int	x;
 }			t_coords;
 
-typedef	struct s_vars
+typedef struct s_vars
 {
 	void	*mlx;
 	void	*win;
 	char	**map;
-	int	moves;
-	int	max_c;
-	int	current_c;
-	t_textures	img;
+	int		moves;
+	int		max_c;
+	int		current_c;
+	t_textures	*img;
 	t_coords	*player;
 	t_coords	*exit;
 	t_coords	*win_res;
 }			t_vars;
 
-int		ft_every_frames(t_vars *vars);
-int		ft_wich_key(int keycode, t_vars *vars);
-int		ft_map_check(t_vars *vars);
+t_coords		*ft_get_win_res(t_vars *vars);
+t_coords		*ft_get_player_coords(t_vars *vars);
 
-void	ft_player_move(t_vars *vars, int y, int x);
-void	ft_logical_verif(t_vars *vars, int y, int x);
+int			ft_every_frames(t_vars *vars);
+int			ft_wich_key(int keycode, t_vars *vars);
+int			ft_map_check(t_vars *vars);
 
-void	*ft_calloc(size_t nmemb, size_t size);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
-void	*ft_render_map(t_vars *vars);
+void		ft_get_textures(t_vars *vars);
+void		ft_player_move(t_vars *vars, int y, int x);
+void		ft_logical_verif(t_vars *vars, int y, int x);
+void		ft_free_all(t_vars *vars);
 
-char	**ft_read_map(char *map);
-char	**ft_split(char const*s, char c);
+void		*ft_calloc(size_t nmemb, size_t size);
+void		*ft_memcpy(void *dest, const void *src, size_t n);
+void		*ft_render_map(t_vars *vars);
 
-t_coords	*ft_get_win_res(t_vars *vars);
-t_coords	*ft_get_player_coords(t_vars *vars);
+char		**ft_read_map(char *map);
+char		**ft_split(char const*s, char c);
 
 #endif

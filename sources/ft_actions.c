@@ -22,16 +22,14 @@ int	ft_every_frames(t_vars *vars)
 int	ft_wich_key(int keycode, t_vars *vars)
 {
 	if (keycode == 65307)
-		exit(0); // need ft_quit pour tout free
-	if (keycode == 119 || keycode == 65362) // w and up
+		ft_free_all(vars);
+	if (keycode == 119 || keycode == 65362)
 		ft_player_move(vars, -1, 0);
-	if (keycode == 97 || keycode == 65361) // a and left
+	if (keycode == 97 || keycode == 65361)
 		ft_player_move(vars, 0, -1);
-	if (keycode == 115 || keycode == 65364) // s and down
+	if (keycode == 115 || keycode == 65364)
 		ft_player_move(vars, 1, 0);
-	if (keycode == 100 || keycode == 65363) // d and right
+	if (keycode == 100 || keycode == 65363)
 		ft_player_move(vars, 0, 1);
-	//ft_printf("%d\n", keycode);
-	ft_printf("vars->max_c %d\nvars->curent_c%d\n", vars->max_c, vars->current_c);
 	return (0);
 }

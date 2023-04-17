@@ -105,15 +105,12 @@ t_coords	*ft_get_win_res(t_vars *vars)
 	win_res = (t_coords *) malloc(sizeof(t_coords));
 	while (vars->map[0][x])
 		x++;
-	ft_printf("x in add window : %d\n", x); // a retirer
 	y = 0;
 	while (vars->map[y])
 		y++;
-	ft_printf("y in add window : %d\n", y); // a retirer
 	win_res->x = x;
 	win_res->y = y;
 	vars->win_res = win_res;
-	ft_printf("vars->win_res->x :%d\nvars->win_res->y :%d\n", vars->win_res->x, vars->win_res->y); // a retirer
 	return (win_res);
 }
 
@@ -121,13 +118,13 @@ int	ft_map_check(t_vars *vars)
 {
 	vars->player = ft_get_player_coords(vars);
 	if (!vars->player)
-		return (0); // need error 
+		return (0); // error
 	vars->win_res = ft_get_win_res(vars);
 	if (!vars->win_res)
-		return (0); // need error 
+		return (0); // need error
 	if (ft_is_rectangle(vars) == 1)
-		printf("ft_is_regtangle : Error map incorrect\n"); // need error 
+		printf("ft_is_regtangle : Error map incorrect\n"); // need error
 	if (ft_check_contains(vars) == 1)
-		printf("ft_check_contains : Error map incorrect\n"); // need error 
+		printf("ft_check_contains : Error map incorrect\n"); // need error
 	return (1);
 }

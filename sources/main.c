@@ -12,44 +12,74 @@
 
 #include "so_long.h"
 
-static int	ft_error(int argc, char **argv)
+static int	ft_error(char **argv)
 {
 	int		fd;
 	int		i;
 	char	temp[1];
 	char	*verif;
 
-	if (argc >= 3)
-		return (ft_printf("Wowowow only one map please\n"));
-	else if (argc <= 1)
-		return (ft_printf("Error please enter a map :   )\n"));
-	else
+	fd = open(argv[1], O_RDONLY);
+	if (read(fd, temp, 1) <= 0)
+		return (ft_printf("Error while opening the file\n"));
+	i = 0;
+	while (argv[1][i])
+		i++;
+	i -= 4;
+	verif = ".ber";
+	while (argv[1][i] == *verif)
 	{
-		fd = open(argv[1], O_RDONLY);
-		if (read(fd, temp, 1) <= 0)
-			return (ft_printf("Error while opening the file\n"));
-		i = 0;
-		while (argv[1][i])
-			i++;
-		i -= 4;
-		verif = ".ber";
-		while (argv[1][i] == *verif)
-		{
-			i++;
-			verif++;
-		}
-		if (*verif == '\0')
-			return (0);
-		return (ft_printf("Error the map must be a '.ber' file :/\n"));
+		i++;
+		verif++;
 	}
+	if (*verif == '\0')
+		return (0);
+	return (ft_printf("Error the map must be a '.ber' file :/\n"));
+}
+
+void	ft_free_all(t_vars *vars)
+{
+	int	i;
+
+	mlx_destroy_image(vars->mlx, vars->img->wall);
+	mlx_destroy_image(vars->mlx, vars->img->road);
+	mlx_destroy_image(vars->mlx, vars->img->player);
+	mlx_destroy_image(vars->mlx, vars->img->food);
+	mlx_destroy_image(vars->mlx, vars->img->enemy);
+	mlx_destroy_image(vars->mlx, vars->img->exit_o);
+	mlx_destroy_image(vars->mlx, vars->img->exit_c);
+	mlx_clear_window(vars->mlx, vars->win);
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_display(vars->mlx);
+	i = 0;
+	while (vars->map[i])
+		free (vars->map[i++]);
+	free (vars->map);
+	free (vars->player);
+	free (vars->exit);
+	free (vars->mlx);
+	free (vars->win_res);
+	free (vars->img);
+	free (vars);
+	exit(0);
 }
 
 static t_vars	*ft_init(int argc, char **argv)
 {
 	t_vars	*vars;
 
-	if (ft_error(argc, argv) > 0)
-		return (NULL);
+	if (argc >= 3)
+	{
+		ft_printf("Wowowow only one map please\n");
+		exit(0);
+	}
+	else if (argc <= 1)
+	{
+		ft_printf("Error please enter a map :   )\n");
+		exit (0);
+	}
+	if (ft_error(argv) > 0)
+		exit(0);
 	vars = (t_vars *) calloc (sizeof(t_vars), 1);
 	if (!vars)
 		return (NULL);
@@ -62,6 +92,12 @@ static t_vars	*ft_init(int argc, char **argv)
 	return (vars);
 }
 
+static int	ft_close_button(t_vars *vars)
+{
+	ft_free_all(vars);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	*vars;
@@ -70,10 +106,10 @@ int	main(int argc, char **argv)
 	vars->mlx = mlx_init();
 	vars->win = ft_render_map(vars);
 	mlx_loop_hook(vars->mlx, &ft_every_frames, vars);
-	mlx_hook(vars->win, 2, (1L << 2), ft_wich_key, vars);
+	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
 	mlx_key_hook(vars->win, ft_wich_key, vars);
 	mlx_loop(vars->mlx);
+	ft_free_all(vars);
 	mlx_destroy_display(vars->mlx);
-	// ft_free_all(vars);
 	return (0);
 }
