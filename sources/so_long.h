@@ -32,6 +32,7 @@ typedef struct s_textures
 	void	*enemy;
 	void	*exit_o;
 	void	*exit_c;
+	void	*frame;
 }			t_textures;
 
 typedef struct s_coords
@@ -59,7 +60,9 @@ t_coords		*ft_get_player_coords(t_vars *vars);
 
 int			ft_every_frames(t_vars *vars);
 int			ft_wich_key(int keycode, t_vars *vars);
-int			ft_map_check(t_vars *vars);
+void		ft_map_check(t_vars *vars);
+void		ft_is_rectangle(t_vars *vars);
+void		ft_check_contains(t_vars *vars, int player, int exit, int food);
 
 void		ft_get_textures(t_vars *vars);
 void		ft_player_move(t_vars *vars, int y, int x);

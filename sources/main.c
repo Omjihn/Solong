@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:22:45 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/12 21:31:24 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/18 21:24:51 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,6 @@ static int	ft_error(char **argv)
 	return (ft_printf("Error the map must be a '.ber' file :/\n"));
 }
 
-void	ft_free_all(t_vars *vars)
-{
-	int	i;
-
-	mlx_destroy_image(vars->mlx, vars->img->wall);
-	mlx_destroy_image(vars->mlx, vars->img->road);
-	mlx_destroy_image(vars->mlx, vars->img->player);
-	mlx_destroy_image(vars->mlx, vars->img->food);
-	mlx_destroy_image(vars->mlx, vars->img->enemy);
-	mlx_destroy_image(vars->mlx, vars->img->exit_o);
-	mlx_destroy_image(vars->mlx, vars->img->exit_c);
-	mlx_clear_window(vars->mlx, vars->win);
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_display(vars->mlx);
-	i = 0;
-	while (vars->map[i])
-		free (vars->map[i++]);
-	free (vars->map);
-	free (vars->player);
-	free (vars->exit);
-	free (vars->mlx);
-	free (vars->win_res);
-	free (vars->img);
-	free (vars);
-	exit(0);
-}
-
 static t_vars	*ft_init(int argc, char **argv)
 {
 	t_vars	*vars;
@@ -86,9 +59,8 @@ static t_vars	*ft_init(int argc, char **argv)
 	vars->current_c = 0;
 	vars->map = ft_read_map(argv[1]);
 	if (!vars->map)
-		return (NULL);
-	if (ft_map_check(vars) == 0)
-		return (NULL);
+		ft_free_all(vars);
+	ft_map_check(vars);
 	return (vars);
 }
 
@@ -105,11 +77,11 @@ int	main(int argc, char **argv)
 	vars = ft_init(argc, argv);
 	vars->mlx = mlx_init();
 	vars->win = ft_render_map(vars);
+	if (!vars->win)
+		ft_free_all(vars);
 	mlx_loop_hook(vars->mlx, &ft_every_frames, vars);
 	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
 	mlx_key_hook(vars->win, ft_wich_key, vars);
 	mlx_loop(vars->mlx);
-	ft_free_all(vars);
-	mlx_destroy_display(vars->mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: gbricot <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 17:08:54 by gbricot           #+#    #+#              #
-#    Updated: 2023/04/10 20:52:48 by gbricot          ###   ########.fr        #
+#    Updated: 2023/04/18 19:10:38 by gbricot          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC =	sources/main.c \
 	sources/ft_render_map.c \
 	sources/ft_actions.c \
 	sources/ft_player_move.c \
+	sources/ft_free_all.c \
 
 OBJ = $(SRC:.c=.o)
 

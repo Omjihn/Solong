@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 19:26:33 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/12 16:41:13 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/19 16:53:43 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_player_move(t_vars *vars, int y, int x)
 			vars->img->road, vars->player->x * 64,
 			(vars->player->y) * 64);
 		//ft_enemy(vars, y, x);
+		//ft_counter();
+		ft_printf("Number of moves :%d\n", vars->moves);
 		ft_logical_verif(vars, y, x);
 		vars->player->y += y;
 		vars->player->x += x;
@@ -56,6 +58,7 @@ void	ft_logical_verif(t_vars *vars, int y, int x)
 		}	
 	}
 }
+
 /*
 void	ft_enemy(t_vars *vars, int y, int x)
 {

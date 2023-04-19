@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 15:38:04 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/11 17:33:29 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/19 19:49:37 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ void	ft_get_textures(t_vars *vars)
 			"textures/butter.xpm", &img_res, &img_res);
 	textures->enemy = mlx_xpm_file_to_image(vars->mlx,
 			"textures/enemy.xpm", &img_res, &img_res);
+	textures->frame = mlx_xpm_file_to_image(vars->mlx,
+                        "textures/frame.xpm", &img_res, &img_res);
 	vars->img = textures;
 }
 
@@ -113,5 +115,9 @@ void	*ft_render_map(t_vars *vars)
 			coords.x = 0;
 		}
 	}
+	mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->img->frame, (vars->win_res->x * 64) / 2 - 92, 4);
+	mlx_string_put(vars->mlx, vars->win, 
+			(vars->win_res->x * 64) / 2 - 80, 40, 0, "salut");
 	return (win);
 }
