@@ -22,9 +22,11 @@ SRC =	sources/main.c \
 	sources/ft_map_check.c \
 	sources/ft_calloc.c \
 	sources/ft_memcpy.c \
+	sources/ft_itoa.c \
 	sources/ft_render_map.c \
 	sources/ft_actions.c \
 	sources/ft_player_move.c \
+	sources/ft_pathfinding.c \
 	sources/ft_free_all.c \
 
 OBJ = $(SRC:.c=.o)

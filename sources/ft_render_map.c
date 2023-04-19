@@ -117,7 +117,7 @@ void	*ft_render_map(t_vars *vars)
 	}
 	mlx_put_image_to_window(vars->mlx, vars->win,
 			vars->img->frame, (vars->win_res->x * 64) / 2 - 92, 4);
-	mlx_string_put(vars->mlx, vars->win, 
-			(vars->win_res->x * 64) / 2 - 80, 40, 0, "salut");
+	mlx_string_put(vars->mlx, vars->win, (vars->win_res->x * 64)
+                                / 2 - 70, 35, 0, "Total moves :");
 	return (win);
 }

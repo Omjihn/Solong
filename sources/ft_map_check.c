@@ -121,5 +121,5 @@ void	ft_map_check(t_vars *vars)
 		ft_free_all(vars);
 	ft_is_rectangle(vars);
 	ft_check_contains(vars, 0, 0, 0);
-	//ft_pathfinding(vars);
+	ft_pathfinding(vars);
 }

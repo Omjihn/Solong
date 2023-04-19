@@ -12,17 +12,17 @@
 
 #include "so_long.h"
 
-static void	ft_free_map(t_vars *vars)
+void	ft_free_map(char **map)
 {
 	int	i;
 
 	i = 0;
-	while (vars->map[i])
+	while (map[i])
 	{
-		free (vars->map[i]);
+		free (map[i]);
 		i++;
 	}
-	free(vars->map);
+	free(map);
 }
 
 static void	ft_free_img(t_vars *vars)
@@ -44,7 +44,11 @@ static void	ft_free_img(t_vars *vars)
 void	ft_free_all(t_vars *vars)
 {
 	if (vars->map)
-		ft_free_map(vars);
+		ft_free_map(vars->map);
+	if (vars->path->map)
+		ft_free_map(vars->path->map);
+	if (vars->path)
+		free (vars->path);
 	if (vars->img)
 		ft_free_img(vars);
 	if (vars->exit)

@@ -57,9 +57,7 @@ static t_vars	*ft_init(int argc, char **argv)
 	if (!vars)
 		return (NULL);
 	vars->current_c = 0;
-	vars->map = ft_read_map(argv[1]);
-	if (!vars->map)
-		ft_free_all(vars);
+	ft_read_map(argv[1], vars);
 	ft_map_check(vars);
 	return (vars);
 }

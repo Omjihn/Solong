@@ -55,17 +55,19 @@ static char	*ft_ber_to_text(char *argv)
 	return (res);
 }
 
-char	**ft_read_map(char *argv)
+void	ft_read_map(char *argv, t_vars *vars)
 {
-	char	**res_map;
 	char	*file;
 
 	file = ft_ber_to_text(argv);
 	if (!file)
-		return (0);
-	res_map = ft_split(file, '\n');
+		ft_free_all(vars);
+	vars->map = ft_split(file, '\n');
+	if (!vars->map)
+		ft_free_all(vars);
+	vars->path = (t_path *) calloc (sizeof(t_path), 1);
+	vars->path->map = ft_split(file, '\n');
+	if (!vars->path->map)
+		ft_free_all(vars);
 	free (file);
-	if (!res_map)
-		return (0);
-	return (res_map);
 }
