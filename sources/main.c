@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:22:45 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/18 21:24:51 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/20 13:12:54 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static t_vars	*ft_init(int argc, char **argv)
 static int	ft_close_button(t_vars *vars)
 {
 	ft_free_all(vars);
-	return (0);
+	return (42);
 }
 
 int	main(int argc, char **argv)
@@ -77,9 +77,8 @@ int	main(int argc, char **argv)
 	vars->win = ft_render_map(vars);
 	if (!vars->win)
 		ft_free_all(vars);
-	mlx_loop_hook(vars->mlx, &ft_every_frames, vars);
 	mlx_hook(vars->win, 17, 0L, ft_close_button, vars);
 	mlx_key_hook(vars->win, ft_wich_key, vars);
 	mlx_loop(vars->mlx);
-	return (0);
+	return (42);
 }

@@ -6,7 +6,7 @@
 /*   By: gbricot <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 17:51:43 by gbricot           #+#    #+#             */
-/*   Updated: 2023/04/18 21:27:03 by gbricot          ###   ########.fr       */
+/*   Updated: 2023/04/20 14:06:12 by gbricot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_check_contains(t_vars *vars, int player, int exit, int food)
 	}
 }
 
-t_coords	*ft_get_player_coords(t_vars *vars)
+static t_coords	*ft_get_player_coords(t_vars *vars)
 {
 	t_coords	*player;
 	int			y;
@@ -92,7 +92,7 @@ t_coords	*ft_get_player_coords(t_vars *vars)
 	return (NULL);
 }
 
-t_coords	*ft_get_win_res(t_vars *vars)
+static t_coords	*ft_get_win_res(t_vars *vars)
 {
 	t_coords	*win_res;
 	int			y;
@@ -120,6 +120,7 @@ void	ft_map_check(t_vars *vars)
 	if (!vars->win_res)
 		ft_free_all(vars);
 	ft_is_rectangle(vars);
+	ft_lines_lenght(vars);
 	ft_check_contains(vars, 0, 0, 0);
 	ft_pathfinding(vars);
 }
